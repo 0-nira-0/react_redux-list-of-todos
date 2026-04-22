@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Loader } from '../Loader';
-import { useAppSelector } from '../../app/store';
+import { useAppDispatch, useAppSelector } from '../../app/store';
 import { User } from '../../types/User';
 import { getUser } from '../../api';
-import { useDispatch } from 'react-redux';
+
 import { currentTodoSlice } from '../../features/currentTodo';
 
 export const TodoModal: React.FC = () => {
   const currTodo = useAppSelector(store => store.currentTodo);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [user, setUser] = useState<User>();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -26,7 +26,7 @@ export const TodoModal: React.FC = () => {
     }
 
     loadUser();
-  }, []);
+  }, [currTodo]);
 
   return (
     <div className="modal is-active" data-cy="modal">
